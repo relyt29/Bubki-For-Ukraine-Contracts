@@ -16,7 +16,7 @@ contract S33Ds is ERC721, Ownable {
     uint256 public totalSupply;
     string public baseURI;
 
-    constructor() ERC721("Name", "Symbol") {}
+    constructor() ERC721("S33Ds for Ukraine", "S33Ds") {}
 
     function mint(uint256 _count) external payable {
         require(isSaleActive);
@@ -48,8 +48,10 @@ contract S33Ds is ERC721, Ownable {
 
         return string(
             abi.encodePacked(
-                baseURI,
-                Strings.toString(_tokenId)
+                abi.encodePacked(
+                    baseURI,
+                    Strings.toString(_tokenId)
+                ), ".json"
             )
         );
     }
