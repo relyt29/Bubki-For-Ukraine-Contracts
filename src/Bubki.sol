@@ -6,7 +6,7 @@ import "./Strings.sol";
 import "./Ownable.sol";
 import "./ERC721.sol";
 
-contract S33Ds is ERC721, Ownable {
+contract Bubki is ERC721, Ownable {
     address public constant UKRAINE_ETH_ADDRESS = 0x165CD37b4C644C2921454429E7F9358d18A45e14;
     uint256 public constant MAX_SUPPLY = 10_000;
 
@@ -16,7 +16,7 @@ contract S33Ds is ERC721, Ownable {
     uint256 public totalSupply;
     string public baseURI;
 
-    constructor() ERC721("S33Ds for Ukraine", "S33Ds") {}
+    constructor() ERC721("Bubki for Ukraine", "Bubki") {}
 
     function mint(uint256 _count) external payable {
         require(isSaleActive);

@@ -8,7 +8,7 @@ import {DSTestPlus} from "./utils/DSTestPlus.sol";
 
 import {ERC721User} from "./utils/users/ERC721User.sol";
 
-import {S33Ds, ERC721TokenReceiver} from "../S33Ds.sol";
+import {Bubki, ERC721TokenReceiver} from "../Bubki.sol";
 
 contract ERC721Recipient is ERC721TokenReceiver {
     address public operator;
@@ -63,20 +63,20 @@ interface Vm {
     function expectRevert(bytes calldata expectedError) external;
 }
 
-contract S33DsTest is DSTestPlus {
-    S33Ds token;
+contract BubkiTest is DSTestPlus {
+    Bubki token;
     Vm vm = Vm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
     uint costPublic = 0.05 ether;
 
     function setUp() public {
         vm.deal(address(0xB33F), 1 ether);
-        token = new S33Ds();
+        token = new Bubki();
         token.flipSaleState();
     }
 
     function testMetadata() public {
-        assertEq(token.name(), "S33Ds for Ukraine");
-        assertEq(token.symbol(), "S33Ds");
+        assertEq(token.name(), "Bubki for Ukraine");
+        assertEq(token.symbol(), "Bubki");
     }
 
     function testTokenURI() public {
