@@ -42,18 +42,9 @@ contract S33Ds is ERC721, Ownable {
         }
     }
 
-
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(ownerOf[_tokenId] != address(0));
-
-        return string(
-            abi.encodePacked(
-                abi.encodePacked(
-                    baseURI,
-                    Strings.toString(_tokenId)
-                ), ".json"
-            )
-        );
+        return string(abi.encodePacked(baseURI, Strings.toString(_tokenId), ".json"));
     }
 
     function updateTokenCost(uint256 _tokenCost) external onlyOwner {
