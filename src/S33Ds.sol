@@ -26,7 +26,7 @@ contract S33Ds is ERC721, Ownable {
 
         unchecked {
             require(currentId + _count <= MAX_SUPPLY);
-            require(msg.value >= _count * tokenCost);
+            require(msg.value == _count * tokenCost);
 
             for (uint256 i; i < _count; ++i) {
                 // 99% sure this check is not necessary,
