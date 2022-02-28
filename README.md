@@ -1,6 +1,6 @@
-# S33Ds for Ukraine NFT Project
+# Bubki for Ukraine NFT Project
 
-This is the smart contract repository for S33Ds for Ukraine.
+This is the smart contract repository for Bubki for Ukraine.
 
 The project requires [Forge](https://github.com/gakonst/foundry) for its build system.
 

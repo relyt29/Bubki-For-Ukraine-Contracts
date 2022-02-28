@@ -6,7 +6,9 @@ import "./Strings.sol";
 import "./Ownable.sol";
 import "./ERC721.sol";
 
-contract S33Ds is ERC721, Ownable {
+
+contract Bubki is ERC721, Ownable {
+
     // We are donating to https://unchain.fund/
     address public constant UKRAINE_ETH_ADDRESS = 0x10E1439455BD2624878b243819E31CfEE9eb721C;
     uint256 public constant MAX_SUPPLY = 10_000;
@@ -14,10 +16,11 @@ contract S33Ds is ERC721, Ownable {
     uint256 public tokenCost = 0.05 ether;
     uint256 public maxMintPerTx = 100;
     bool public isSaleActive;
+    bool public metadataFrozen;
     uint256 public totalSupply;
     string public baseURI;
 
-    constructor() ERC721("Name", "Symbol") {}
+    constructor() ERC721("Bubki for Ukraine", "Bubki") {}
 
     function mint(uint256 _count) external payable {
         require(isSaleActive);
@@ -27,7 +30,7 @@ contract S33Ds is ERC721, Ownable {
 
         unchecked {
             require(currentId + _count <= MAX_SUPPLY);
-            require(msg.value >= _count * tokenCost);
+            require(msg.value == _count * tokenCost);
 
             for (uint256 i; i < _count; ++i) {
                 // 99% sure this check is not necessary,
@@ -43,16 +46,9 @@ contract S33Ds is ERC721, Ownable {
         }
     }
 
-
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(ownerOf[_tokenId] != address(0));
-
-        return string(
-            abi.encodePacked(
-                baseURI,
-                Strings.toString(_tokenId)
-            )
-        );
+        return string(abi.encodePacked(baseURI, Strings.toString(_tokenId), ".json"));
     }
 
     function updateTokenCost(uint256 _tokenCost) external onlyOwner {
@@ -64,7 +60,12 @@ contract S33Ds is ERC721, Ownable {
     }
 
     function updateBaseURI(string memory _baseURI) external onlyOwner {
+        require(metadataFrozen == false, "METADATA_FROZEN");
         baseURI = _baseURI;
+    }
+
+    function freezeBaseURI() external onlyOwner {
+        metadataFrozen = true;
     }
 
     function flipSaleState() external onlyOwner {
