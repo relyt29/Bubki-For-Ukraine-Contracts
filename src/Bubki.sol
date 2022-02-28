@@ -6,7 +6,9 @@ import "./Strings.sol";
 import "./Ownable.sol";
 import "./ERC721.sol";
 
+
 contract Bubki is ERC721, Ownable {
+
     // We are donating to https://unchain.fund/
     address public constant UKRAINE_ETH_ADDRESS = 0x10E1439455BD2624878b243819E31CfEE9eb721C;
     uint256 public constant MAX_SUPPLY = 10_000;
