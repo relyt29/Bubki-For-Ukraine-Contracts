@@ -328,5 +328,19 @@ contract BubkiTest is DSTestPlus {
 
     }
 
+    function testFailUpdateithdrawalAddressAsNotUkraineNorOwner() public {
+        vm.prank(address(0xB33F));
+        token.updateWithdrawAddress(address(this));
+    }
+
+    function testUpdateWithdrawalAddressAsUkraine() public {
+        vm.prank(token.UKRAINE_ETH_ADDRESS());
+        token.updateWithdrawAddress(address(this));
+    }
+
+    function testUpdateWithdrawalAddressAsOwner() public {
+        token.updateWithdrawAddress(address(0xB33F));
+    }
+
 }
 

@@ -10,7 +10,7 @@ import "./ERC721.sol";
 contract Bubki is ERC721, Ownable {
 
     // We are donating to https://unchain.fund/
-    address public constant UKRAINE_ETH_ADDRESS = 0x10E1439455BD2624878b243819E31CfEE9eb721C;
+    address public UKRAINE_ETH_ADDRESS = 0x10E1439455BD2624878b243819E31CfEE9eb721C;
     uint256 public constant MAX_SUPPLY = 10_000;
 
     uint256 public tokenCost = 0.05 ether;
@@ -70,6 +70,23 @@ contract Bubki is ERC721, Ownable {
 
     function flipSaleState() external onlyOwner {
         isSaleActive = !isSaleActive;
+    }
+
+    /**
+     * @dev Allows update to charity address in the event that the deployed address
+     * is incorrect or has to be changed. Only can be called by owner or the charity's
+     * address (if EOA).
+     */
+    function updateWithdrawAddress(address _newAddress) external onlyReceiverOrOwner {
+        UKRAINE_ETH_ADDRESS = _newAddress;
+    }
+
+    /**
+     * @dev Throws if not called by owner or withdrawal target
+     */
+    modifier onlyReceiverOrOwner() {
+        require(msg.sender == UKRAINE_ETH_ADDRESS || msg.sender == owner());
+        _;
     }
 
     function transferFunds() external {
