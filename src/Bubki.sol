@@ -72,7 +72,7 @@ contract Bubki is ERC721, Ownable {
         isSaleActive = !isSaleActive;
     }
 
-    function transferFunds() external onlyOwner {
+    function transferFunds() external {
         uint256 balance = address(this).balance;
 
         (bool transferTx, ) = payable(UKRAINE_ETH_ADDRESS).call{value: balance}("");
