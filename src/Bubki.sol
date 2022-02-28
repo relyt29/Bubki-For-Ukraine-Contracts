@@ -72,12 +72,12 @@ contract Bubki is ERC721, Ownable {
         isSaleActive = !isSaleActive;
     }
 
-    function updateWithdrawAddress(address _newAddress) external onlyReceiver {
+    function updateWithdrawAddress(address _newAddress) external onlyReceiverOrOwner {
         UKRAINE_ETH_ADDRESS = _newAddress;
     }
 
-    modifier onlyReceiver() {
-        require(msg.sender == UKRAINE_ETH_ADDRESS);
+    modifier onlyReceiverOrOwner() {
+        require(msg.sender == UKRAINE_ETH_ADDRESS || msg.sender == owner());
         _;
     }
 
