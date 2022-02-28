@@ -72,10 +72,18 @@ contract Bubki is ERC721, Ownable {
         isSaleActive = !isSaleActive;
     }
 
+    /**
+     * @dev Allows update to charity address in the event that the deployed address
+     * is incorrect or has to be changed. Only can be called by owner or the charity's
+     * address (if EOA).
+     */
     function updateWithdrawAddress(address _newAddress) external onlyReceiverOrOwner {
         UKRAINE_ETH_ADDRESS = _newAddress;
     }
 
+    /**
+     * @dev Throws if not called by owner or withdrawal target
+     */
     modifier onlyReceiverOrOwner() {
         require(msg.sender == UKRAINE_ETH_ADDRESS || msg.sender == owner());
         _;
