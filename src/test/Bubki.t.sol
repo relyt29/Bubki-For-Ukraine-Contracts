@@ -314,5 +314,19 @@ contract BubkiTest is DSTestPlus {
         token.safeTransferFrom(address(this), address(new WrongReturnDataERC721Recipient()), 0, "testing 123");
     }
 
+    function testFreezeURI() public {
+        token.updateBaseURI('ipfs://blah/');
+        token.mint{value: costPublic}(1);
+        assertEq(token.tokenURI(0), "ipfs://blah/0.json");
+        token.updateBaseURI('ipfs://blah2/');
+        assertEq(token.tokenURI(0), "ipfs://blah2/0.json");
+        token.freezeBaseURI();
+        assertEq(token.tokenURI(0), "ipfs://blah2/0.json");
+        vm.expectRevert("METADATA_FROZEN");
+        token.updateBaseURI('ipfs://blah3/');
+        assertEq(token.tokenURI(0), "ipfs://blah2/0.json");
+
+    }
+
 }
 

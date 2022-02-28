@@ -14,6 +14,7 @@ contract Bubki is ERC721, Ownable {
     uint256 public tokenCost = 0.05 ether;
     uint256 public maxMintPerTx = 100;
     bool public isSaleActive;
+    bool public metadataFrozen;
     uint256 public totalSupply;
     string public baseURI;
 
@@ -57,7 +58,12 @@ contract Bubki is ERC721, Ownable {
     }
 
     function updateBaseURI(string memory _baseURI) external onlyOwner {
+        require(metadataFrozen == false, "METADATA_FROZEN");
         baseURI = _baseURI;
+    }
+
+    function freezeBaseURI() external onlyOwner {
+        metadataFrozen = true;
     }
 
     function flipSaleState() external onlyOwner {
