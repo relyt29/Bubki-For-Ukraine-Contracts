@@ -7,8 +7,8 @@ import "./Ownable.sol";
 import "./ERC721.sol";
 
 contract S33Ds is ERC721, Ownable {
-    // Source of address: https://twitter.com/Ukraine/status/1497594592438497282
-    address public constant UKRAINE_ETH_ADDRESS = 0x165CD37b4C644C2921454429E7F9358d18A45e14;
+    // We are donating to https://unchain.fund/
+    address public constant UKRAINE_ETH_ADDRESS = 0x10E1439455BD2624878b243819E31CfEE9eb721C;
     uint256 public constant MAX_SUPPLY = 10_000;
 
     uint256 public tokenCost = 0.05 ether;
