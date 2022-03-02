@@ -57,6 +57,7 @@ contract NonERC721Recipient {}
 
 interface Vm {
     function prank(address from) external;
+    function spoof(address from) external;
     function startPrank(address from) external;
     function stopPrank() external;
     function deal(address who, uint256 amount) external;
@@ -340,6 +341,19 @@ contract BubkiTest is DSTestPlus {
 
     function testUpdateWithdrawalAddressAsOwner() public {
         token.updateWithdrawAddress(address(0xB33F));
+        assertEq(token.UKRAINE_ETH_ADDRESS(),address(0xB33F));
+    }
+
+    function testUpdateWithSpoof() public {
+        vm.spoof(token.UKRAINE_ETH_ADDRESS());
+        token.updateWithdrawAddress(address(this));
+        assertEq(token.UKRAINE_ETH_ADDRESS(), address(this));
+
+    }
+
+    function testFailUpdateWithSpoofWrongAddress() public {
+        vm.spoof(address(0xB33F));
+        token.updateWithdrawAddress(address(this));
     }
 
 }
